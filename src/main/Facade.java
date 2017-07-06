@@ -2,44 +2,47 @@ package main;
 
 public class Facade {
 	
-	private ControllerSistema cts = new ControllerSistema();
+	private ControllerSistema controllerSistema = new ControllerSistema();
 	
 	
 	
 	public void inicializa(int caixa, double taxaBasica){
-		cts.inicializa(caixa, taxaBasica);
+		controllerSistema.inicializa(caixa, taxaBasica);
 	}	
 	
 	public int recuperaValor(){
-		return cts.getCaixa();
+		return controllerSistema.getCaixa();
 	}
 	
 	public int cadastrarCenario(String descricao){
-		return cts.cadastraCenario(descricao);
+		return controllerSistema.cadastraCenario(descricao);
 		
 	}
 	
 	public String exibirCenario(int posicao){
-		return cts.exibeCenario(posicao);
+		return controllerSistema.exibeCenario(posicao);
 	}
 	
 	public void exibirCenarios(){
-		cts.exibeCenarios();
+		controllerSistema.exibeCenarios();
+	}
+	
+	public void cadastrarAposta(int cenario, String apostador, int valor, String previsao){
+		controllerSistema.cadastraAposta(cenario, apostador, valor, previsao);
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-
-
-	
-	
-	
+//	public int valorTotalDeApostas(int cenario){
+//		controllerSistema.valorTotalDeApostas(cenario);
+//	}
+//	
+//	public int totalDeApostas(int cenario){
+//		controllerSistema.totalDeApostas(cenario);
+//	}
+//	
+//	public String exibeAposta(int cenario){
+//		controllerSistema.exibeApostas(cenario);
+//	}
 	
 	
 	

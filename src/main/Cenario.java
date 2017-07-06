@@ -1,7 +1,9 @@
 package main;
 
-public class Cenario {
+import java.util.HashMap;
 
+public class Cenario {
+	
 	EstadoCenario estado = EstadoCenario.NAO_FINALIZADO;
 	String descricao;
 	
@@ -14,7 +16,7 @@ public class Cenario {
 	
 	@Override
 	public String toString() {
-		return descricao + estado;
+		return descricao + " - " + estado;
 	}
 	
 	

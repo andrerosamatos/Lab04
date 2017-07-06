@@ -1,14 +1,15 @@
 package main;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class ControllerSistema {
 
-	HashMap<Integer, Cenario> cenarios = new HashMap<>();
+	ArrayList<Cenario> cenarios = new ArrayList<Cenario>();
+	ArrayList<Aposta> apostas = new ArrayList<Aposta>();
 
-	int posicao = 0;
 	int caixa;
 	double taxaBasica;
+	int cenario;
 
 	public ControllerSistema() {
 
@@ -30,26 +31,89 @@ public class ControllerSistema {
 			throw new IllegalArgumentException("Descricao nao pode ser vazia");
 		}
 		Cenario cenario = new Cenario(descricao);
-		
 
-		cenarios.put(posicao, cenario);
-		posicao++;
+		cenarios.add(cenario);
 
-		return posicao;
+		return cenarios.indexOf(cenario);
 
 	}
 
 	public String exibeCenario(int posicao) {
-		return (posicao + 1) + cenarios.get(posicao).toString();
-				}
-
-	public void exibeCenarios() {
-		// TODO Auto-generated method stub
-
+		return (cenarios.get(posicao - 1))
+				+ cenarios.get(posicao - 1).toString();
 	}
+
+	public String exibeCenarios() {
+		for (int i = 0; i < cenarios.size(); i++) {
+			return (i) + " - " + cenarios.get(i).toString();
+		}
+		return null;
+	}
+
+	public void cadastraAposta(int cenario, String apostador, int valor,
+			String previsao) {
+		boolean acontece;
+		if (cenarios.get(cenario) == null) {
+			throw new NullPointerException("Cenario não existe");
+		}
+		if (apostador == null) {
+			throw new NullPointerException("Descricao nao pode ser null");
+		}
+		if (apostador.equals("")) {
+			throw new IllegalArgumentException("Descricao nao pode ser vazia");
+		}
+		if (valor <= 0.00) {
+			throw new IllegalArgumentException(
+					"Aposta nao pode ser R$0.00 ou menor");
+		}
+		if (previsao.equalsIgnoreCase("vai acontecer")) {
+			acontece = true;
+		} else {
+			acontece = false;
+		}
+
+		Aposta aposta = new Aposta(cenario, apostador, valor, acontece);
+		apostas.add(cenario, aposta);
+	
+	
+	}
+	
+//	public void valorTotalDeApostas(int cenario) {
+//		for i
+//	}
+	
 
 	public int getCaixa() {
 		return caixa;
 	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 
 }
