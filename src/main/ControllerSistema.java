@@ -2,10 +2,13 @@ package main;
 
 import java.util.ArrayList;
 
+import models.Aposta;
+import models.Cenario;
+import models.Previsao;
+
 public class ControllerSistema {
 
 	ArrayList<Cenario> cenarios = new ArrayList<Cenario>();
-	ArrayList<Aposta> apostas = new ArrayList<Aposta>();
 
 	int caixa;
 	double taxaBasica;
@@ -49,71 +52,66 @@ public class ControllerSistema {
 		}
 		return null;
 	}
-
-	public void cadastraAposta(int cenario, String apostador, int valor,
-			String previsao) {
-		boolean acontece;
-		if (cenarios.get(cenario) == null) {
-			throw new NullPointerException("Cenario não existe");
-		}
-		if (apostador == null) {
-			throw new NullPointerException("Descricao nao pode ser null");
-		}
-		if (apostador.equals("")) {
-			throw new IllegalArgumentException("Descricao nao pode ser vazia");
-		}
-		if (valor <= 0.00) {
-			throw new IllegalArgumentException(
-					"Aposta nao pode ser R$0.00 ou menor");
-		}
-		if (previsao.equalsIgnoreCase("vai acontecer")) {
-			acontece = true;
-		} else {
-			acontece = false;
-		}
-
-		Aposta aposta = new Aposta(cenario, apostador, valor, acontece);
-		apostas.add(cenario, aposta);
 	
 	
+
+	public void cadastraAposta(int cenarioPos, String apostador, int valor,
+			String previsao) throws Exception {
+		Cenario cenario = getCenario(cenarioPos);
+
+		Previsao acontece = convertePrevisao(previsao);
+
+		Aposta aposta = new Aposta(apostador, valor, acontece);
+		cenario.addAposta(aposta);
 	}
-	
-//	public void valorTotalDeApostas(int cenario) {
-//		for i
-//	}
-	
+
+	/**
+	 * @param cenarioPos
+	 * @return
+	 */
+	private Cenario getCenario(int cenarioPos) {
+		if (cenarios.contains(cenarioPos)) {
+			throw new IllegalArgumentException("Cenario não existe");
+
+		}
+		Cenario cenario = cenarios.get(cenarioPos);
+		return cenario;
+	}
+
+	private Previsao convertePrevisao(String previsao) {
+		return Previsao.value(previsao);
+	}
+
+	public int valorTotalDeApostas(int cenarioPos) {
+
+		Cenario cenario = getCenario(cenarioPos);
+
+		return cenario.valorTotalDeApostas();
+
+	}
+
+	public int totalDeApostas(int cenarioPos) {
+
+		Cenario cenario = getCenario(cenarioPos);
+		return cenario.totalDeApostas();
+
+	}
+
+	public String exibeApostas(int cenarioPos) {
+		Cenario cenario = getCenario(cenarioPos);
+
+		return cenario.exibeApostas();
+	}
 
 	public int getCaixa() {
 		return caixa;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public void fecharAposta(int cenarioPos, boolean ocorreu) {
+		Cenario cenario = getCenario(cenarioPos);
 
+		cenario.fecharAposta(ocorreu);
+
+	}
 
 }

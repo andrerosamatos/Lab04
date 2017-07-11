@@ -23,26 +23,33 @@ public class Facade {
 		return controllerSistema.exibeCenario(posicao);
 	}
 	
-	public void exibirCenarios(){
-		controllerSistema.exibeCenarios();
+	public String exibirCenarios(){
+		return controllerSistema.exibeCenarios();
 	}
 	
-	public void cadastrarAposta(int cenario, String apostador, int valor, String previsao){
-		controllerSistema.cadastraAposta(cenario, apostador, valor, previsao);
+	public void cadastrarAposta(int cenarioPos, String apostador, int valor, String previsao) throws Exception{
+		controllerSistema.cadastraAposta(cenarioPos, apostador, valor, previsao);
 	}
 	
 	
-//	public int valorTotalDeApostas(int cenario){
-//		controllerSistema.valorTotalDeApostas(cenario);
-//	}
-//	
-//	public int totalDeApostas(int cenario){
-//		controllerSistema.totalDeApostas(cenario);
-//	}
-//	
-//	public String exibeAposta(int cenario){
-//		controllerSistema.exibeApostas(cenario);
-//	}
+	public int valorTotalDeApostas(int cenarioPos){
+		return controllerSistema.valorTotalDeApostas(cenarioPos);
+	}
+
+	public int totalDeApostas(int cenarioPos){
+		return controllerSistema.totalDeApostas(cenarioPos);
+		
+	}
+	
+	public String exibeAposta(int cenarioPos){
+		return controllerSistema.exibeApostas(cenarioPos);
+	}
+	
+	public void fecharAposta(int cenarioPos, boolean ocorreu){
+		controllerSistema.fecharAposta(cenarioPos, ocorreu);
+	}
+	
+	
 	
 	
 	
