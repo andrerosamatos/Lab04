@@ -42,8 +42,7 @@ public class ControllerSistema {
 	}
 
 	public String exibeCenario(int posicao) {
-		return (cenarios.get(posicao - 1))
-				+ cenarios.get(posicao - 1).toString();
+		return (cenarios.get(posicao - 1)) + cenarios.get(posicao - 1).toString();
 	}
 
 	public String exibeCenarios() {
@@ -52,11 +51,8 @@ public class ControllerSistema {
 		}
 		return null;
 	}
-	
-	
 
-	public void cadastraAposta(int cenarioPos, String apostador, int valor,
-			String previsao) throws Exception {
+	public void cadastraAposta(int cenarioPos, String apostador, int valor, String previsao) throws Exception {
 		Cenario cenario = getCenario(cenarioPos);
 
 		Previsao acontece = convertePrevisao(previsao);
@@ -112,6 +108,16 @@ public class ControllerSistema {
 
 		cenario.fecharAposta(ocorreu);
 
+	}
+
+	public int getCaixaCenario(int cenarioPos) {
+		Cenario cenario = getCenario(cenarioPos);
+		return (int) Math.floor(cenario.getCaixaCenario() * taxaBasica);
+	}
+
+	public int getTotalRateio(int cenarioPos) {
+		Cenario cenario = getCenario(cenarioPos);
+		return (int) (cenario.valorTotalDeApostas() - cenario.getCaixaCenario());
 	}
 
 }
