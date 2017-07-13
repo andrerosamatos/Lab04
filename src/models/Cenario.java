@@ -8,6 +8,13 @@ public class Cenario {
 	private ArrayList<Aposta> apostas = new ArrayList<Aposta>();
 
 	public Cenario(String descricao) {
+		if (descricao == null) {
+			throw new NullPointerException("Descricao nao pode ser null");
+		}
+		if (descricao.equals("")) {
+			throw new IllegalArgumentException("Erro no cadastro de cenario: Descricao nao pode ser vazia");
+		}
+
 		this.descricao = descricao;
 	}
 

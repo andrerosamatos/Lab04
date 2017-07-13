@@ -2,9 +2,9 @@ package models;
 
 public enum EstadoCenario {
 		
-	NAO_FINALIZADO("nao finalizado"),
-	FINALIZADO_OCORREU("ocorreu"),
-	FINALIZADO_N_OCORREU("nao ocorreu");
+	NAO_FINALIZADO("Nao finalizado"),
+	FINALIZADO_OCORREU("Ocorreu"),
+	FINALIZADO_N_OCORREU("Nao ocorreu");
 
 	private String value;
 	

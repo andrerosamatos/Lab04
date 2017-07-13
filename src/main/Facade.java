@@ -1,24 +1,30 @@
 package main;
 
+import models.Cenario;
+
 public class Facade {
 
 	private ControllerSistema controllerSistema = new ControllerSistema();
 
-	public void inicializa(int caixa, double taxaBasica) {
-		controllerSistema.inicializa(caixa, taxaBasica);
+	public void inicializa(int caixa, double taxa) {
+		controllerSistema.inicializa(caixa, taxa);
+	}
+	
+	public int getCaixa(){
+		return controllerSistema.getCaixa();
 	}
 
 	public int recuperaValor() {
 		return controllerSistema.getCaixa();
 	}
 
-	public int cadastrarCenario(String descricao) {
-		return controllerSistema.cadastraCenario(descricao);
+	public void cadastrarCenario(String descricao) {
+		controllerSistema.cadastraCenario(descricao);
 
 	}
 
 	public String exibirCenario(int posicao) {
-		return controllerSistema.exibeCenario(posicao);
+		return controllerSistema.exibirCenario(posicao);
 	}
 
 	public String exibirCenarios() {

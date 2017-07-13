@@ -9,13 +9,13 @@ public class Aposta {
 	public Aposta(String apostador, int valor, Previsao acontece) {
 
 		if (apostador == null) {
-			throw new NullPointerException("Descricao nao pode ser null");
+			throw new NullPointerException("Erro no cadastro de aposta: Apostador nao pode ser vazio ou nulo");
 		}
-		if (apostador.equals("")) {
-			throw new IllegalArgumentException("Descricao nao pode ser vazia");
+		if (apostador.trim().equals("")) {
+			throw new IllegalArgumentException("Erro no cadastro de aposta: Apostador nao pode ser vazio ou nulo");
 		}
 		if (valor <= 0.00) {
-			throw new IllegalArgumentException("Aposta nao pode ser R$0.00 ou menor");
+			throw new IllegalArgumentException("Erro no cadastro de aposta: Valor nao pode ser menor ou igual a zero");
 		}
 
 		this.apostador = apostador;
