@@ -56,8 +56,17 @@ public class Facade {
 		return controllerSistema.getCaixaCenario(cenarioPos);
 	}
 
-	public int getTotalRateio(int cenarioPos) {
+	public int getTotalRateioCenario(int cenarioPos) {
 		return controllerSistema.getTotalRateio(cenarioPos);
 	}
+	
+	public int cadastrarCenario(String descricao, int bonus) {
+        return controllerSistema.cadastraCenarioComBonus(descricao, bonus);
+    }
+    
+    public int cadastrarApostaSeguraValor(int cenarioPos, String apostador, int valor, String previsao, int valorAssegurado, int custo) throws Exception{
+        return controllerSistema.cadastraApostaSeguraValor(cenarioPos, apostador, valor, previsao, valorAssegurado, custo);
+    }
+
 
 }

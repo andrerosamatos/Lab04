@@ -17,7 +17,10 @@ public enum Previsao {
 	}
 	
 	public static Previsao value(String previsao) {
-		if (previsao.trim().equals("")) {
+		if (previsao.equals("")) {
+			throw new IllegalArgumentException("Erro no cadastro de aposta: Previsao nao pode ser vazia ou nula");
+		}
+		if (previsao.trim().equals("   ")) {
 			throw new IllegalArgumentException("Erro no cadastro de aposta: Previsao nao pode ser vazia ou nula");
 		}
 		if (!previsao.equalsIgnoreCase("vai acontecer") && !previsao.equalsIgnoreCase("n vai acontecer")) {

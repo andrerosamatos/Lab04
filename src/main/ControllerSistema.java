@@ -3,13 +3,15 @@ package main;
 import java.util.ArrayList;
 
 import models.Aposta;
+import models.ApostaAsseguradaValor;
 import models.Cenario;
+import models.CenarioComBonus;
 import models.Previsao;
 
 public class ControllerSistema {
 
 	ArrayList<Cenario> cenarios = new ArrayList<Cenario>();
-
+	ArrayList<CenarioComBonus> cenariosComBonus = new ArrayList<CenarioComBonus>();
 	int caixa;
 	double taxa;
 	int cenario;
@@ -72,7 +74,7 @@ public class ControllerSistema {
 	 * @return
 	 */
 	private Cenario getCenario(int cenarioPos) {
-		if ((cenarioPos) < 0 || cenarios.contains(cenarioPos)) {
+		if ((cenarioPos) < 0) {
 			throw new IllegalArgumentException("Erro no cadastro de aposta: Cenario invalido");
 		}
 		if (cenarioPos > cenarios.size()){
@@ -88,7 +90,12 @@ public class ControllerSistema {
 	}
 
 	public int valorTotalDeApostas(int cenarioPos) {
-
+		if (cenarioPos-1 < 0){
+			throw new IllegalArgumentException("Erro na consulta do valor total de apostas: Cenario invalido");
+		}
+		if ((cenarioPos - 1) > cenarios.size()){
+			throw new IllegalArgumentException("Erro na consulta do valor total de apostas: Cenario nao cadastrado");
+		}
 		Cenario cenario = getCenario(cenarioPos - 1);
 
 		return cenario.valorTotalDeApostas();
@@ -96,7 +103,12 @@ public class ControllerSistema {
 	}
 
 	public int totalDeApostas(int cenarioPos) {
-
+		if (cenarioPos <= 0){
+			throw new IllegalArgumentException("Erro na consulta do total de apostas: Cenario invalido");
+		}
+		if ((cenarioPos - 1) > cenarios.size()){
+			throw new IllegalArgumentException("Erro na consulta do total de apostas: Cenario nao cadastrado");
+		}
 		Cenario cenario = getCenario(cenarioPos - 1);
 		return cenario.totalDeApostas();
 
@@ -120,13 +132,35 @@ public class ControllerSistema {
 	}
 
 	public int getCaixaCenario(int cenarioPos) {
-		Cenario cenario = getCenario(cenarioPos);
-		return (int) Math.floor(cenario.getCaixaCenario() * taxa);
+		Cenario cenario = getCenario(cenarioPos - 1);
+		return (int) Math.floor(cenario.getCaixaCenario(taxa));
 	}
 
 	public int getTotalRateio(int cenarioPos) {
-		Cenario cenario = getCenario(cenarioPos);
-		return (int) (cenario.valorTotalDeApostas() - cenario.getCaixaCenario());
+		Cenario cenario = getCenario(cenarioPos - 1);
+		return (int) (cenario.valorTotalDeApostas() - cenario.getCaixaCenario(taxa));
+	}
+	
+	public int cadastraCenarioComBonus(String descricao, int bonus) {
+        CenarioComBonus cenarioComBonus = new CenarioComBonus(descricao, bonus);
+        
+        cenariosComBonus.add(cenarioComBonus);
+        return cenariosComBonus.indexOf(cenarioComBonus) ;
+    }
+
+    public int cadastraApostaSeguraValor(int cenarioPos, String apostador, int valor, String previsao,
+            int valorAssegurado, int custo) throws Exception {
+        Cenario cenario = getCenario(cenarioPos - 1);
+
+        Previsao acontece = convertePrevisao(previsao);
+
+        ApostaAsseguradaValor apostaAsseguradaValor = new ApostaAsseguradaValor(apostador, valor, acontece, valorAssegurado, custo);
+        return cenario.addApostaAsseguradaValor(apostaAsseguradaValor);        
+    }
+
+
+	public double getTaxa() {
+		return taxa;
 	}
 
 }

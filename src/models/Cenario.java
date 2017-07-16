@@ -2,11 +2,17 @@ package models;
 
 import java.util.ArrayList;
 
+import com.sun.javafx.image.impl.ByteIndexed.Getter;
+
+import main.ControllerSistema;
+
 public class Cenario {
 	private EstadoCenario estado = EstadoCenario.NAO_FINALIZADO;
-	private String descricao;
+	protected String descricao;
+	
 	private ArrayList<Aposta> apostas = new ArrayList<Aposta>();
-
+	private ArrayList<ApostaAsseguradaValor> apostasAsseguradasValor = new ArrayList<ApostaAsseguradaValor>();
+	
 	public Cenario(String descricao) {
 		if (descricao == null) {
 			throw new NullPointerException("Descricao nao pode ser null");
@@ -61,7 +67,7 @@ public class Cenario {
 		}
 	}
 
-	public int getCaixaCenario() {
+	public double getCaixaCenario(double taxa) {
 		int somador = 0;
 		if (estado == EstadoCenario.FINALIZADO_OCORREU) {
 			for (Aposta aposta : apostas) {
@@ -70,19 +76,26 @@ public class Cenario {
 				}
 
 			}
-			return somador;
+			return somador * taxa;
 
 		} else {
 			for (Aposta aposta : apostas) {
 				if (aposta.getPrevisao() == Previsao.NAO_VAI_ACONTECER) {
-					somador += aposta.getValor();
+					somador += aposta.getValor() ;
 				}
 
 			}
-			return somador;
+			return somador * taxa;
 		}
 
 	}
+	
+	public int addApostaAsseguradaValor(ApostaAsseguradaValor apostaAsseguradaValor) throws Exception {
+        validaCenarioNaoFinalizado();
+        this.apostasAsseguradasValor.add(apostaAsseguradaValor);
+        return apostasAsseguradasValor.indexOf(apostaAsseguradaValor);
+    }
+
 
 	@Override
 	public String toString() {

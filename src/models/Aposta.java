@@ -17,6 +17,7 @@ public class Aposta {
 		if (valor <= 0.00) {
 			throw new IllegalArgumentException("Erro no cadastro de aposta: Valor nao pode ser menor ou igual a zero");
 		}
+		
 
 		this.apostador = apostador;
 		this.valor = valor;
