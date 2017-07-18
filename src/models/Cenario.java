@@ -2,8 +2,6 @@ package models;
 
 import java.util.ArrayList;
 
-import com.sun.javafx.image.impl.ByteIndexed.Getter;
-
 import main.ControllerSistema;
 
 public class Cenario {
@@ -64,6 +62,28 @@ public class Cenario {
 	private void validaCenarioNaoFinalizado() throws Exception {
 		if (estado != EstadoCenario.NAO_FINALIZADO) {
 			throw new Exception("Cenario Finalizado");
+		}
+	}
+	
+	public double getApostaPerdedora(){
+		int somador = 0;
+		if (estado == EstadoCenario.FINALIZADO_OCORREU) {
+			for (Aposta aposta : apostas) {
+				if (aposta.getPrevisao() == Previsao.VAI_ACONTECER) {
+					somador += aposta.getValor();
+				}
+
+			}
+			return somador;
+
+		} else {
+			for (Aposta aposta : apostas) {
+				if (aposta.getPrevisao() == Previsao.NAO_VAI_ACONTECER) {
+					somador += aposta.getValor() ;
+				}
+
+			}
+			return somador;
 		}
 	}
 

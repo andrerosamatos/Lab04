@@ -128,17 +128,22 @@ public class ControllerSistema {
 		Cenario cenario = getCenario(cenarioPos);
 
 		cenario.fecharAposta(ocorreu);
-
+	}
+	
+	private void addCaixa(int addCaixa) {
+		int caixa += addCaixa;
 	}
 
 	public int getCaixaCenario(int cenarioPos) {
 		Cenario cenario = getCenario(cenarioPos - 1);
-		return (int) Math.floor(cenario.getCaixaCenario(taxa));
+		int addCaixa = (int) cenario.getCaixaCenario(taxa); 
+		addCaixa(addCaixa);
+		return addCaixa;
 	}
 
 	public int getTotalRateio(int cenarioPos) {
 		Cenario cenario = getCenario(cenarioPos - 1);
-		return (int) (cenario.valorTotalDeApostas() - cenario.getCaixaCenario(taxa));
+		return (int) (cenario.getApostaPerdedora()- cenario.getCaixaCenario(taxa));
 	}
 	
 	public int cadastraCenarioComBonus(String descricao, int bonus) {
