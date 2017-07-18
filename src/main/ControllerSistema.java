@@ -125,13 +125,13 @@ public class ControllerSistema {
 	}
 
 	public void fecharAposta(int cenarioPos, boolean ocorreu) {
-		Cenario cenario = getCenario(cenarioPos);
+		Cenario cenario = getCenario(cenarioPos - 1);
 
 		cenario.fecharAposta(ocorreu);
 	}
 	
 	private void addCaixa(int addCaixa) {
-		int caixa += addCaixa;
+		caixa += addCaixa;
 	}
 
 	public int getCaixaCenario(int cenarioPos) {
