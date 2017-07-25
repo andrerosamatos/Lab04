@@ -7,10 +7,10 @@ import main.ControllerSistema;
 public class Cenario {
 	private EstadoCenario estado = EstadoCenario.NAO_FINALIZADO;
 	protected String descricao;
-	
+
 	private ArrayList<Aposta> apostas = new ArrayList<Aposta>();
 	private ArrayList<ApostaAsseguradaValor> apostasAsseguradasValor = new ArrayList<ApostaAsseguradaValor>();
-	
+
 	public Cenario(String descricao) {
 		if (descricao == null) {
 			throw new NullPointerException("Descricao nao pode ser null");
@@ -59,17 +59,24 @@ public class Cenario {
 		}
 	}
 
+	public boolean validaCenarioFechado() throws Exception {
+		if (estado == EstadoCenario.NAO_FINALIZADO) {
+			return false;
+		}
+		return true;
+	}
+
 	private void validaCenarioNaoFinalizado() throws Exception {
 		if (estado != EstadoCenario.NAO_FINALIZADO) {
 			throw new Exception("Cenario Finalizado");
 		}
 	}
-	
-	public double getApostaPerdedora(){
+
+	public double getApostaPerdedora() {
 		int somador = 0;
 		if (estado == EstadoCenario.FINALIZADO_OCORREU) {
 			for (Aposta aposta : apostas) {
-				if (aposta.getPrevisao() == Previsao.VAI_ACONTECER) {
+				if (aposta.getPrevisao() == Previsao.NAO_VAI_ACONTECER) {
 					somador += aposta.getValor();
 				}
 
@@ -78,8 +85,8 @@ public class Cenario {
 
 		} else {
 			for (Aposta aposta : apostas) {
-				if (aposta.getPrevisao() == Previsao.NAO_VAI_ACONTECER) {
-					somador += aposta.getValor() ;
+				if (aposta.getPrevisao() == Previsao.VAI_ACONTECER) {
+					somador += aposta.getValor();
 				}
 
 			}
@@ -91,7 +98,7 @@ public class Cenario {
 		int somador = 0;
 		if (estado == EstadoCenario.FINALIZADO_OCORREU) {
 			for (Aposta aposta : apostas) {
-				if (aposta.getPrevisao() == Previsao.VAI_ACONTECER) {
+				if (aposta.getPrevisao() == Previsao.NAO_VAI_ACONTECER) {
 					somador += aposta.getValor();
 				}
 
@@ -100,8 +107,8 @@ public class Cenario {
 
 		} else {
 			for (Aposta aposta : apostas) {
-				if (aposta.getPrevisao() == Previsao.NAO_VAI_ACONTECER) {
-					somador += aposta.getValor() ;
+				if (aposta.getPrevisao() == Previsao.VAI_ACONTECER) {
+					somador += aposta.getValor();
 				}
 
 			}
@@ -109,13 +116,12 @@ public class Cenario {
 		}
 
 	}
-	
-	public int addApostaAsseguradaValor(ApostaAsseguradaValor apostaAsseguradaValor) throws Exception {
-        validaCenarioNaoFinalizado();
-        this.apostasAsseguradasValor.add(apostaAsseguradaValor);
-        return apostasAsseguradasValor.indexOf(apostaAsseguradaValor);
-    }
 
+	public int addApostaAsseguradaValor(ApostaAsseguradaValor apostaAsseguradaValor) throws Exception {
+		validaCenarioFechado();
+		this.apostasAsseguradasValor.add(apostaAsseguradaValor);
+		return apostasAsseguradasValor.indexOf(apostaAsseguradaValor);
+	}
 
 	@Override
 	public String toString() {

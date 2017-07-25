@@ -48,19 +48,19 @@ public class Facade {
 		return controllerSistema.exibeApostas(cenarioPos);
 	}
 
-	public void fecharAposta(int cenarioPos, boolean ocorreu) {
+	public void fecharAposta(int cenarioPos, boolean ocorreu) throws Exception {
 		controllerSistema.fecharAposta(cenarioPos, ocorreu);
 	}
 
-	public int getCaixaCenario(int cenarioPos) {
+	public int getCaixaCenario(int cenarioPos) throws Exception {
 		return controllerSistema.getCaixaCenario(cenarioPos);
 	}
 
-	public int getTotalRateioCenario(int cenarioPos) {
+	public int getTotalRateioCenario(int cenarioPos) throws Exception {
 		return controllerSistema.getTotalRateio(cenarioPos);
 	}
 	
-	public int cadastrarCenario(String descricao, int bonus) {
+	public int cadastrarCenarioComBonus(String descricao, int bonus) {
         return controllerSistema.cadastraCenarioComBonus(descricao, bonus);
     }
     
